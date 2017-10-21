@@ -1,6 +1,6 @@
 package com.company;
 
-public abstract class Ship {
+abstract class Ship {
 
     enum Orientation {
         HORIZONTAL, VERTICAL
@@ -10,7 +10,7 @@ public abstract class Ship {
     private int hits;
     private Orientation orientation;
 
-    public Ship(Orientation orientation) {
+    Ship(Orientation orientation) {
         occupied = new Field[initializeOccupied(this.getClass())];
         this.orientation = orientation;
     }
@@ -26,36 +26,35 @@ public abstract class Ship {
             return 4;
     }
 
-    public boolean isSunk() {
+    boolean isSunk() {
         return hits == getDecksCount();
     }
 
-    public void setOnField(Field field, int deckNo) {
+    void setOnField(Field field, int deckNo) {
         field.setState(State.SHIP);
         field.setShip(this);
         occupied[deckNo] = field;
     }
 
-    public void hit() {
+    void hit() {
         hits++;
-        if(isSunk()) {
+        if (isSunk()) {
             for (int i = 0; i < getDecksCount(); i++) {
                 occupied[i].setState(State.SUNK);
             }
         }
     }
 
-    public abstract int getDecksCount();
+    abstract int getDecksCount();
 
-    public Orientation getOrientation() {
+    Orientation getOrientation() {
         return orientation;
     }
-
 }
 
 class Destroyer extends Ship {
 
-    public Destroyer() {
+    Destroyer() {
         super(Orientation.HORIZONTAL);
     }
 
@@ -66,7 +65,7 @@ class Destroyer extends Ship {
 }
 
 class Submarine extends Ship {
-    public Submarine(Orientation orientation) {
+    Submarine(Orientation orientation) {
         super(orientation);
     }
 
@@ -77,7 +76,7 @@ class Submarine extends Ship {
 }
 
 class Cruiser extends Ship {
-    public Cruiser(Orientation orientation) {
+    Cruiser(Orientation orientation) {
         super(orientation);
     }
 
@@ -88,7 +87,7 @@ class Cruiser extends Ship {
 }
 
 class Battleship extends Ship {
-    public Battleship(Orientation orientation) {
+    Battleship(Orientation orientation) {
         super(orientation);
     }
 

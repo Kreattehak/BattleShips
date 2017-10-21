@@ -37,7 +37,7 @@ public class MainApp {
             try {
                 System.out.println(board.shoot(y, x));
             } catch (IllegalMoveException e) {
-                e.getMessage();
+                System.out.println(e.getMessage());
             }
             System.out.println();
         }

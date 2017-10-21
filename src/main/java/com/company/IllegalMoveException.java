@@ -1,13 +1,12 @@
 package com.company;
 
+class IllegalMoveException extends Exception {
 
-public class IllegalMoveException extends Exception {
-
-    public IllegalMoveException() {
+    IllegalMoveException() {
         this("Default IllegalMoveException message");
     }
 
-    public IllegalMoveException(String message) {
+    IllegalMoveException(String message) {
         super(message);
     }
 }

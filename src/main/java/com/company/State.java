@@ -10,7 +10,7 @@ public enum State {
         this.state = state;
     }
 
-    public char getState(){
+    char getState() {
         return state;
     }
 }

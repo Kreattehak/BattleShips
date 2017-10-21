@@ -2,16 +2,16 @@ package com.company;
 
 import java.util.Random;
 
-public class Board {
+class Board {
 
-    public static final int BOARD_SIZE = 10;
-    public static final int SHIP_TYPES_COUNT = 4;
+    private static final int BOARD_SIZE = 10;
+    private static final int SHIP_TYPES_COUNT = 4;
 
     private int shipsCount;
     private int shipsCountByDecks[] = new int[SHIP_TYPES_COUNT];
     private Field[][] fields = new Field[BOARD_SIZE][BOARD_SIZE];
 
-    public Board() {
+    Board() {
         for (int y = 0; y < BOARD_SIZE; y++) {
             for (int x = 0; x < BOARD_SIZE; x++) {
                 fields[y][x] = new Field(y, x, State.EMPTY);
@@ -27,7 +27,7 @@ public class Board {
         System.out.println();
     }
 
-    public void printBoard() {
+    void printBoard() {
         printBoardLetters();
         for (int y = 0; y < BOARD_SIZE; y++) {
             int numberToPrint = y + 1;
@@ -44,7 +44,7 @@ public class Board {
         }
     }
 
-    public void fillBoard() {
+    void fillBoard() {
         Random random = new Random();
 
         for (int decks = 1; decks <= SHIP_TYPES_COUNT; decks++) {
@@ -79,7 +79,7 @@ public class Board {
         }
     }
 
-    public void addShip(int y, int x, Ship ship) throws IllegalMoveException {
+    void addShip(int y, int x, Ship ship) throws IllegalMoveException {
         int index = ship.getDecksCount() - 1;
 
         if (shipsCountByDecks[index] == getCountOfShipDecks(ship.getDecksCount())) {
@@ -131,11 +131,11 @@ public class Board {
         return false;
     }
 
-    public String shoot(int y, int x) throws IllegalMoveException {
+    String shoot(int y, int x) throws IllegalMoveException {
         Field field = fields[y][x];
 
         if (field.getState() != State.EMPTY && field.getState() != State.SHIP) {
-            throw new IllegalMoveException("You had already shoot that place, check map!");
+            throw new IllegalMoveException("You had already shot that place, check the map!");
         } else if (field.getState() == State.EMPTY) {
             field.setState(State.MISS);
             return String.format("Field[%c][%d] was empty", (char) (field.getX() + 65), field.getY() + 1);
@@ -145,13 +145,13 @@ public class Board {
             String hitMark = String.format("Field[%c][%d] was a hit", (char) (field.getX() + 65), field.getY() + 1);
             if (field.getShip().isSunk()) {
                 shipsCount--;
-                return hitMark + String.format(" that hit sunked a " + field.getShip().getClass().getSimpleName());
+                return hitMark + " that hit sunked a " + field.getShip().getClass().getSimpleName();
             }
             return hitMark;
         }
     }
 
-    public boolean isOutside(int y, int x) {
+    boolean isOutside(int y, int x) {
         return x < 0 || x >= BOARD_SIZE || y < 0 || y >= BOARD_SIZE;
     }
 
@@ -159,12 +159,11 @@ public class Board {
         return SHIP_TYPES_COUNT - decks + 1;
     }
 
-    public Field getField(int y, int x) {
+    Field getField(int y, int x) {
         return fields[y][x];
     }
 
-    public int getShipsCount() {
+    int getShipsCount() {
         return shipsCount;
     }
-
 }
